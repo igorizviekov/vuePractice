@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <Nav />
+    <transition name="slide" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
+
+<script>
+import Nav from "./UI/Nav";
+export default {
+  name: "StockCard",
+  components: {
+    Nav
+  }
+};
+</script>
 
 <style lang="scss">
 #app {
@@ -15,17 +24,27 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
+  .slide-enter-active {
+    animation: slide-in 100ms ease-out forwards;
+  }
+  .slide-leave-active {
+    animation: slide-out 100ms ease-out forwards;
+  }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
     }
   }
 }
